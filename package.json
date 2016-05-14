@@ -33,6 +33,8 @@
     "babel-preset-react": "^6.5.0",
     "babelify": "^7.3.0",
     "react": "^15.0.2",
-    "react-dom": "^15.0.2"
+    "react-dom": "^15.0.2",
+    "react-sortablejs": "^1.0.0",
+    "sortablejs": "^1.4.2"
   }
 }

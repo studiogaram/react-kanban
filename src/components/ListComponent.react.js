@@ -1,5 +1,6 @@
 import React from 'react';
 import CardComponent from './CardComponent.react';
+import Sortable from 'react-sortablejs';
 
 export default class ListComponent extends React.Component {
   constructor(props) {
@@ -15,6 +16,8 @@ export default class ListComponent extends React.Component {
 
   render() {
     const { cards } = this.state;
+    let sortable = null; // sortable instance
+
     return (
       <div className="list">
         <div className="list-header">
@@ -23,18 +26,33 @@ export default class ListComponent extends React.Component {
           </p>
         </div>
         <div className="list-body">
-          {cards.map((card, i) => {
-            return (
-              <CardComponent
-                key={i}
-                itemCompleted={card.completed}
-                itemType={card.type}
-                itemTitle={card.title}
-                itemContent={card.content}
-                itemBirthTime={card.birthTime}
-              />
-            );
-          })}
+          <Sortable
+            options={{
+            }}
+            ref={(c) => {
+              if (c) {
+                sortable = c.sortable;
+              }
+            }}
+            tag="div"
+            onChange={(order, sortable) => {
+              this.props.onChange(order);
+            }}
+          >
+            {cards.map((card, i) => {
+              return (
+                <CardComponent
+                  key={i}
+                  data-id={card.order}
+                  itemCompleted={card.completed}
+                  itemType={card.type}
+                  itemTitle={card.title}
+                  itemContent={card.content}
+                  itemBirthTime={card.birthTime}
+                />
+              );
+            })}
+          </Sortable>
         </div>
       </div>
     );

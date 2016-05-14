@@ -22,6 +22,9 @@ export default class BoardComponent extends React.Component {
                 key={i}
                 name={list.name}
                 items={list.card}
+                onChange={(items) => {
+                    this.setState({ lists });
+                }}
               />
             );
           })}
