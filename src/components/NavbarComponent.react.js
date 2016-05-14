@@ -11,10 +11,14 @@ export default class NavbarComponent extends React.Component {
             <div className="navbar-left">
               <p className="header-subtitle">navbar-left</p>
               <h1 className="header-title">header-title</h1>
-              <FilterComponent></FilterComponent>
+              <FilterComponent
+              />
             </div>
             <div className="navbar-right">
-              <ButtonComponent>Create Issue</ButtonComponent>
+              <ButtonComponent
+                text="Create Issue"
+                state="primary"
+              />
             </div>
           </div>
         </div>

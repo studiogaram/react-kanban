@@ -1,14 +1,19 @@
 import React from 'react';
 export default class ButtonComponent extends React.Component {
   render() {
+    let stateClassname = 'btn '
+    if (this.props.state == 'primary') {
+      stateClassname += 'btn-primary ';
+    }else{
+      stateClassname += 'btn-default ';
+    }
     return (
-      <button className="btn btn-primary">Create Issue</button>
+      <button className={stateClassname}>{this.props.text}</button>
     );
   }
 }
 
 ButtonComponent.propTypes = {
-  // areAllCompleted: React.PropTypes.bool.isRequired,
-  // allTodos: React.PropTypes.object.isRequired,
-  // statusFilter: React.PropTypes.oneOf(['all', 'completed', 'incompleted']),
+  state: React.PropTypes.oneOf(['default', 'primary']).isRequired,
+  text: React.PropTypes.string.isRequired,
 };
