@@ -1,10 +1,13 @@
 import React from 'react';
+import NavbarComponent from './NavbarComponent.react';
+import BoardComponent from './BoardComponent.react';
 
-export default class TodoApp extends React.Component {
+export default class KanbanApp extends React.Component {
   render() {
     return (
-      <div className="container">
-        Start!
+      <div>
+        <NavbarComponent />
+        <BoardComponent />
       </div>
     );
   }

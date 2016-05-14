@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import AppWrapper from './components/KanbanApp.react.js';
+import KanbanApp from './components/KanbanApp.react.js';
 
 const App = () => (
-  <AppWrapper />
+  <KanbanApp />
 );
 
 ReactDOM.render(<App />, document.getElementById('app'));
