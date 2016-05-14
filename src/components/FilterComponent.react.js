@@ -1,13 +1,28 @@
 import React from 'react';
 
 export default class FilterComponent extends React.Component {
+
+  constructor(props) {
+    super(props);
+    const items = props.filterState;
+  }
+
   render() {
+    const { filterState } = this.props;
     return (
       <div className="header-filter">
         <p className="filter-title">QUICK FILTERS</p>
         <ul className="filter-content">
-          <li><a href="#">Improvement</a></li>
-          <li><a className="active" href="#">Defect</a></li>
+          {filterState.map((filter, i) => {
+            console.log(filter);
+            return (
+              <li key={i}>
+                <a className={filter.state ? 'active' : ''} href="#">
+                  {filter.name}
+                </a>
+              </li>
+            );
+          })}
         </ul>
       </div>
     );

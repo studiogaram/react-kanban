@@ -3,15 +3,26 @@ import ButtonComponent from './ButtonComponent.react';
 import FilterComponent from './FilterComponent.react';
 
 export default class NavbarComponent extends React.Component {
+  constructor(props) {
+    super(props);
+
+    const items = props.items;
+    this.state = {
+      teamName: items.name,
+      boardName: items.board[0].name,
+    };
+  }
+
   render() {
     return (
       <div className="navbar navbar-fixed">
         <div className="container-fluid">
           <div className="row row-fluid">
             <div className="navbar-left">
-              <p className="header-subtitle">navbar-left</p>
-              <h1 className="header-title">header-title</h1>
+              <p className="header-subtitle">{this.state.teamName}</p>
+              <h1 className="header-title">{this.state.boardName}</h1>
               <FilterComponent
+                filterState={this.props.filterState}
               />
             </div>
             <div className="navbar-right">
@@ -28,6 +39,7 @@ export default class NavbarComponent extends React.Component {
 }
 
 NavbarComponent.propTypes = {
+  items: React.PropTypes.object.isRequired,
   // areAllCompleted: React.PropTypes.bool.isRequired,
   // allTodos: React.PropTypes.object.isRequired,
   // statusFilter: React.PropTypes.oneOf(['all', 'completed', 'incompleted']),

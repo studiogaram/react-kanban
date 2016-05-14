@@ -1,39 +1,40 @@
 import React from 'react';
 import CardComponent from './CardComponent.react';
+
 export default class ListComponent extends React.Component {
+  constructor(props) {
+    super(props);
+
+    const cards = props.items;
+
+    this.state = {
+      name: props.name,
+      cards,
+    };
+  }
+
   render() {
+    const { cards } = this.state;
     return (
       <div className="list">
         <div className="list-header">
           <p className="list-title">
-            <b>32</b> To Do
+            <b>{this.state.cards.length}</b> {this.state.name}
           </p>
         </div>
         <div className="list-body">
-          <CardComponent
-            itemCompleted={false}
-            itemType={'defect'}
-            itemTitle={'ISSUE-111'}
-            itemContent={'Lorem ipsum dolor sit amet, consectetu.Lorem ipsum dolor sit amet, consectetu.'}
-            itemBirthTime={'04-14 12:48'}
-          />
-          <CardComponent
-            itemCompleted
-            itemType={'defect'}
-            itemTitle={'ISSUE-111'}
-            itemContent={'Lorem ipsum dolor sit amet, consectetu.Lorem ipsum dolor sit amet, consectetu.'}
-            itemBirthTime={'04-14 12:48'}
-          />
-          <CardComponent
-            itemCompleted={false}
-            itemType={'improvement'}
-            itemTitle={'ISSUE-111'}
-            itemContent={'Lorem ipsum dolor sit amet, consectetu.Lorem ipsum dolor sit amet, consectetu.'}
-            itemBirthTime={'04-14 12:48'}
-          />
-          <CardComponent />
-          <CardComponent />
-          <CardComponent />
+          {cards.map((card, i) => {
+            return (
+              <CardComponent
+                key={i}
+                itemCompleted={card.completed}
+                itemType={card.type}
+                itemTitle={card.title}
+                itemContent={card.content}
+                itemBirthTime={card.birthTime}
+              />
+            );
+          })}
         </div>
       </div>
     );
@@ -41,7 +42,7 @@ export default class ListComponent extends React.Component {
 }
 
 ListComponent.propTypes = {
-  // areAllCompleted: React.PropTypes.bool.isRequired,
-  // allTodos: React.PropTypes.object.isRequired,
-  // statusFilter: React.PropTypes.oneOf(['all', 'completed', 'incompleted']),
+  items: React.PropTypes.object.isRequired,
+  name: React.PropTypes.string.isRequired,
 };
+
