@@ -9,6 +9,13 @@ const KanbanActions = {
       text,
     });
   },
+  sortList(order, target) {
+    AppDispatcher.dispatch({
+      actionType: KanbanConstants.LIST_SORT,
+      target,
+      order,
+    });
+  },
   createCard(text, listID) {
     AppDispatcher.dispatch({
       actionType: KanbanConstants.CARD_CREATE,

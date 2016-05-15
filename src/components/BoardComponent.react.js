@@ -2,6 +2,7 @@ import React from 'react';
 import KanbanActions from '../actions/KanbanActions';
 import ListComponent from './ListComponent.react';
 import ButtonComponent from './ButtonComponent.react';
+import Sortable from 'react-sortablejs';
 
 export default class BoardComponent extends React.Component {
   constructor(props) {
@@ -10,6 +11,7 @@ export default class BoardComponent extends React.Component {
     this.state = {
       name: props.items.name,
       lists,
+      listOrder: props.items.listOrder,
     };
   }
 
@@ -17,31 +19,51 @@ export default class BoardComponent extends React.Component {
     KanbanActions.createList('asdfsfd', 0);
   }
 
+  sortList(order, target) {
+    KanbanActions.sortList(order, target);
+  }
+
   render() {
-    const { lists } = this.state;
-    let listitems = [];
-    Object.keys(lists).forEach((key) => {
-      listitems.push(
+    console.log(this.props.lists);
+    const listItems = this.props.items.listOrder.map((val, key) => (
+      <div key={key} className={'tempStyleDiv'} data-id={val}>
         <ListComponent
           key={key}
-          id={lists[key].id}
-          name={lists[key].name}
+          id={val}
+          data-id={val}
+          name={this.props.lists[val].name}
           items={this.props.cards}
-          cardOrder={lists[key].cardOrder}
+          cardOrder={this.props.lists[val].cardOrder}
           filterState={this.props.filterState}
         />
-      );
-    });
+      </div>
+    ));
     return (
       <div className="container-fluid content">
-        <div className="row row-fluid">
-          {listitems}
+      <div className="row row-fluid">
+          <Sortable
+            options={{
+              group: {
+                name: 'lists',
+                pull: true,
+                put: true,
+              },
+            }}
+            className={'tempStyleDiv'}
+            ref={this.props.items.id}
+            onChange={(items) => {
+              console.log(items);
+              this.sortList(items, 0);
+            }}
+          >
+            {listItems}
+          </Sortable>
           <ButtonComponent
             text="Create List"
-            state="primary"
+            state="list"
             onClick={this.createList}
           />
-        </div>
+          </div>
       </div>
     );
   }

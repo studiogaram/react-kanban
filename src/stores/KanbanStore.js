@@ -22,11 +22,11 @@ const items = {
     boards: [
       {
         name: 'boardName',
-        lists: {
-        },
+        listOrder: [],
       },
     ],
   },
+  lists: {},
   cards: {},
 };
 
@@ -38,14 +38,17 @@ const createList = (text, boardID) => {
     cardOrder: [],
   };
 
-  items.teams.boards[BOARDID].lists[id] = list;
-  console.log(items);
+  items.lists[id] = list;
+  items.teams.boards[boardID].listOrder.push(id);
+};
+const sortList = (order, target) => {
+  console.log(target);
+  items.teams.boards[target].listOrder = order;
 };
 
 const createCard = (text, listID) => {
   const id = (+new Date() + Math.floor(Math.random() * 999999)).toString(32);
-  
-  console.log(listID);
+
   const card = {
     id,
     title: id+id,
@@ -55,12 +58,11 @@ const createCard = (text, listID) => {
     birthTime: (+new Date()),
   };
   items.cards[id] = card;
-  items.teams.boards[BOARDID].lists[listID].cardOrder.push(id);
+  items.lists[listID].cardOrder.push(id);
 };
 
 const sortCard = (order, target) => {
-  console.log(target);
-  items.teams.boards[BOARDID].lists[target].cardOrder = order;
+  items.lists[target].cardOrder = order;
 };
 
 const KanbanStore = assign({}, EventEmitter.prototype, {
@@ -93,6 +95,10 @@ AppDispatcher.register((action) => {
       createList(text, action.boardID);
       KanbanStore.emitChange();
     }
+    break;
+  case KanbanConstants.LIST_SORT :
+    sortList(action.order, action.target);
+    KanbanStore.emitChange();
     break;
   case KanbanConstants.CARD_CREATE :
     text = action.text.trim();

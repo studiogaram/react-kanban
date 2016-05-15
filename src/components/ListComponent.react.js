@@ -36,12 +36,12 @@ export default class ListComponent extends React.Component {
     ).map((val, key) => (
       <div key={key} data-id={val}>
         <CardComponent
-          key={this.state.cards[val].id}
-          itemCompleted={this.state.cards[val].completed}
-          itemType={this.state.cards[val].type}
-          itemTitle={this.state.cards[val].title}
-          itemContent={this.state.cards[val].content}
-          itemBirthTime={this.state.cards[val].birthTime}
+          key={this.props.items[val].id}
+          itemCompleted={this.props.items[val].completed}
+          itemType={this.props.items[val].type}
+          itemTitle={this.props.items[val].title}
+          itemContent={this.props.items[val].content}
+          itemBirthTime={this.props.items[val].birthTime}
         />
       </div>
     ));
@@ -49,35 +49,28 @@ export default class ListComponent extends React.Component {
       <div className="list">
         <div className="list-header">
           <p className="list-title">
-            <b>{this.props.cardOrder.length}</b> {this.state.name}
+            <b>{this.props.cardOrder.length}</b> {this.props.name}
           </p>
         </div>
         <div className="list-body">
           <Sortable
             options={{
               group: {
-                name: 'shared',
+                name: 'cards',
                 pull: true,
                 put: true,
               },
             }}
             ref={this.state.id}
             onChange={(items) => {
-              this.sortCard(items, this.state.id);
+              this.sortCard(items, this.props.id);
             }}
           >
             {cardItems}
           </Sortable>
           <ButtonComponent
             text="Create Issue"
-            state="primary"
-            onClick={this.createCard}
-          />
-        </div>
-        <div className="list-footer">
-          <ButtonComponent
-            text="Create Issue"
-            state="primary"
+            state="list"
             onClick={this.createCard}
           />
         </div>
