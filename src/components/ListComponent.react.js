@@ -7,17 +7,11 @@ import Sortable from 'react-sortablejs';
 export default class ListComponent extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      name: props.name,
-      cards: props.items,
-      cardOrder: props.cardOrder,
-      id: props.id,
-    };
     this.createCard = this.createCard.bind(this);
   }
 
   createCard() {
-    KanbanActions.createCard('asdfsfd', this.state.id);
+    KanbanActions.createCard('asdfsfd', this.props.id);
   }
 
   sortCard(order, target) {
@@ -32,7 +26,7 @@ export default class ListComponent extends React.Component {
     );
 
     const cardItems = this.props.cardOrder.filter(val =>
-      filterItems.indexOf(this.state.cards[val].type) > -1
+      filterItems.indexOf(this.props.items[val].type) > -1
     ).map((val, key) => (
       <div key={key} data-id={val}>
         <CardComponent
@@ -61,7 +55,7 @@ export default class ListComponent extends React.Component {
                 put: true,
               },
             }}
-            ref={this.state.id}
+            ref={this.props.id}
             onChange={(items) => {
               this.sortCard(items, this.props.id);
             }}
