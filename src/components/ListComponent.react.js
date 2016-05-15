@@ -8,6 +8,7 @@ export default class ListComponent extends React.Component {
   constructor(props) {
     super(props);
     this.createCard = this.createCard.bind(this);
+    this.removeList = this.removeList.bind(this);
   }
 
   createCard() {
@@ -16,6 +17,10 @@ export default class ListComponent extends React.Component {
 
   sortCard(order, target) {
     KanbanActions.sortCard(order, target);
+  }
+
+  removeList() {
+    KanbanActions.removeList(this.props.id);
   }
 
   render() {
@@ -45,6 +50,10 @@ export default class ListComponent extends React.Component {
           <p className="list-title">
             <b>{this.props.cardOrder.length}</b> {this.props.name}
           </p>
+          <button
+            className="btn-trash"
+            onClick={this.removeList}
+          />
         </div>
         <div className="list-body">
           <Sortable

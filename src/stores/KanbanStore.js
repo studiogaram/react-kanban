@@ -41,6 +41,12 @@ const createList = (text, boardID) => {
   items.lists[id] = list;
   items.teams.boards[boardID].listOrder.push(id);
 };
+
+const removeList = (target) => {
+  delete items.lists[target];
+  // items.teams.boards[0].listOrder.pop();
+};
+
 const sortList = (order, target) => {
   console.log(target);
   items.teams.boards[target].listOrder = order;
@@ -95,6 +101,10 @@ AppDispatcher.register((action) => {
       createList(text, action.boardID);
       KanbanStore.emitChange();
     }
+    break;
+  case KanbanConstants.LIST_REMOVE :
+    removeList(action.target);
+    KanbanStore.emitChange();
     break;
   case KanbanConstants.LIST_SORT :
     sortList(action.order, action.target);

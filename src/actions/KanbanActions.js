@@ -9,6 +9,12 @@ const KanbanActions = {
       text,
     });
   },
+  removeList(target) {
+    AppDispatcher.dispatch({
+      actionType: KanbanConstants.LIST_REMOVE,
+      target,
+    });
+  },
   sortList(order, target) {
     AppDispatcher.dispatch({
       actionType: KanbanConstants.LIST_SORT,
