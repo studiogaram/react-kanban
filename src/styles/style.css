@@ -114,6 +114,10 @@ a:active {
   text-decoration: none;
 }
 
+b {
+  color: #4F5259;
+}
+
 button {
   overflow: visible;
 }
@@ -195,6 +199,28 @@ select {
   background-color: rgba(76, 128, 241, 0.1);
   -webkit-font-smoothing: subpixel-antialiased;
 }
+
+.btn-list {
+  border: 1px solid #e1e4e6;
+  border-radius: 2px;
+  margin-bottom: 4px;
+  background-color: #FFF;
+  cursor: pointer;
+  text-align: center;
+  width: 280px;
+  height: 64px;
+  vertical-align: top;
+}
+
+
+/*.btn-list:hover,
+.btn-list:active,
+.btn-list.active,
+.btn-list:focus {
+  color: #2c5ae9;
+  background-color: rgba(76, 128, 241, 0.1);
+  -webkit-font-smoothing: subpixel-antialiased;
+}*/
 
 .container {
   margin-left: auto;
@@ -303,6 +329,7 @@ select {
   padding: 3px 0;
   color: #a9afb3;
   line-height: 2;
+  text-transform: capitalize !important;
   transition: background 0.2s ease, border 0.2s ease;
 }
 
@@ -335,19 +362,24 @@ select {
   margin-right: 10px;
   height: 100%;
   min-height: 100px;
-  padding-top: 56px;
+  padding-top: 46px;
+  vertical-align: top;
+  cursor: move;
 }
 
 .list-header {
   position: absolute;
-  top: 12px;
+  top: 16px;
   padding: 0;
   margin: 0;
   height: 40px;
+  color: #333333;
 }
 
 .list-title {
   color: #292a2b;
+  padding: 0;
+  margin: 0;
 }
 
 .list-body {
@@ -374,7 +406,8 @@ select {
 }
 
 .card-type-improvement {
-  background-image: url("resources/icn_improvement.png"); /* browser support */
+  background-image: url("resources/icn_improvement.png");
+  /* browser support */
   background-image: none, url('resources/icn_improvement.svg'), url('resources/icn_improvement.png');
   background-repeat: no-repeat;
   background-position: 12px 10px;
@@ -382,8 +415,9 @@ select {
 }
 
 .card-type-defect {
-  background-image: url("resources/icn_defect.png"); /* browser support */
-  background-image: none, url('resources/icn_defect.svg'), url('resources/icn_defect.png'); 
+  background-image: url("resources/icn_defect.png");
+  /* browser support */
+  background-image: none, url('resources/icn_defect.svg'), url('resources/icn_defect.png');
   background-repeat: no-repeat;
   background-position: 12px 10px;
   background-size: 15px 15px;
@@ -409,4 +443,13 @@ select {
   right: 10px;
   font-size: 10px;
   color: #a9afb3;
+}
+
+.row-fluid>.btn-list {
+  margin-top: 47px;
+}
+
+.tempStyleDiv {
+  display: inline-block;
+  height: 100%;
 }
