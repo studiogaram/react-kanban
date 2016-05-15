@@ -21,23 +21,33 @@ export default class ListComponent extends React.Component {
   }
 
   render() {
+    const filterItems = [];
 
+    for (let key in this.props.filterState) {
+      if (this.props.filterState[key].state === true) {
+        filterItems.push(this.props.filterState[key].name);
+      }
+    }
 
     const { cards } = this.state;
+
     let sortable = null; // sortable instance
     let carditems = [];
+
     for (let key in cards) {
-      carditems.push(
-        <CardComponent
-          key={key}
-          data-id={key}
-          itemCompleted={cards[key].completed}
-          itemType={cards[key].type}
-          itemTitle={cards[key].title}
-          itemContent={cards[key].content}
-          itemBirthTime={cards[key].birthTime}
-        />
-      );
+      if (filterItems.indexOf(cards[key].type) > -1) {
+        carditems.push(
+          <CardComponent
+            key={key}
+            data-id={key}
+            itemCompleted={cards[key].completed}
+            itemType={cards[key].type}
+            itemTitle={cards[key].title}
+            itemContent={cards[key].content}
+            itemBirthTime={cards[key].birthTime}
+          />
+        );
+      }
     }
 
     return (

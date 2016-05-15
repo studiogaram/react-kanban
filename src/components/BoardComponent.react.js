@@ -28,6 +28,7 @@ export default class BoardComponent extends React.Component {
           id={lists[key].id}
           name={lists[key].name}
           items={lists[key].cards}
+          filterState={this.props.filterState}
           onChange={(items) => {
             console.log(items);
             this.setState({ items });

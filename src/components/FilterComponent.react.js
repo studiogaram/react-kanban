@@ -1,10 +1,14 @@
 import React from 'react';
+import KanbanActions from '../actions/KanbanActions';
 
 export default class FilterComponent extends React.Component {
 
-  constructor(props) {
-    super(props);
-    const items = props.filterState;
+  toggleFilter(e) {
+    KanbanActions.toggleFilter(e.target.value);
+  }
+
+  capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
   }
 
   render() {
@@ -14,11 +18,15 @@ export default class FilterComponent extends React.Component {
         <p className="filter-title">QUICK FILTERS</p>
         <ul className="filter-content">
           {filterState.map((filter, i) => {
-            console.log(filter);
             return (
               <li key={i}>
-                <a className={filter.state ? 'active' : ''} href="#">
-                  {filter.name}
+                <a
+                  className={filter.state ? 'active' : ''}
+                  href="#"
+                  value={filter.name}
+                  onClick={this.toggleFilter}
+                >
+                  {this.capitalizeFirstLetter(filter.name)}
                 </a>
               </li>
             );
@@ -30,7 +38,5 @@ export default class FilterComponent extends React.Component {
 }
 
 FilterComponent.propTypes = {
-  // areAllCompleted: React.PropTypes.bool.isRequired,
-  // allTodos: React.PropTypes.object.isRequired,
-  // statusFilter: React.PropTypes.oneOf(['all', 'completed', 'incompleted']),
+  filterState: React.PropTypes.array.isRequired,
 };

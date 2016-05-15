@@ -9,7 +9,7 @@ export default class NavbarComponent extends React.Component {
     const items = props.items;
     this.state = {
       teamName: items.name,
-      boardName: items.board[0].name,
+      boardName: items.boards[0].name,
     };
   }
 
@@ -40,7 +40,5 @@ export default class NavbarComponent extends React.Component {
 
 NavbarComponent.propTypes = {
   items: React.PropTypes.object.isRequired,
-  // areAllCompleted: React.PropTypes.bool.isRequired,
-  // allTodos: React.PropTypes.object.isRequired,
-  // statusFilter: React.PropTypes.oneOf(['all', 'completed', 'incompleted']),
+  filterState: React.PropTypes.array.isRequired,
 };
