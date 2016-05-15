@@ -48,10 +48,10 @@ const createCard = (text, listID) => {
   const card = {
     id,
     title: id+id,
-    completed: false,
-    type: 'defect',
+    completed: (+new Date()%2) ? true : false,
+    type: (+new Date()%2) ? 'improvement' : 'defect',
     content: id+id+id,
-    birthTime: '04-14 12:48',
+    birthTime: (+new Date()),
   };
   items.teams.boards[0].lists[listID].cards[id] = card;
 };
