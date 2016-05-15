@@ -16,6 +16,13 @@ const KanbanActions = {
       text,
     });
   },
+  sortCard(order, target) {
+    AppDispatcher.dispatch({
+      actionType: KanbanConstants.CARD_SORT,
+      target,
+      order,
+    });
+  },
   toggleFilter(filterName) {
     AppDispatcher.dispatch({
       actionType: KanbanConstants.SET_FILTER,

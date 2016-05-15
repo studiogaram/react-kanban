@@ -4,46 +4,47 @@ import KanbanConstants from '../constants/KanbanConstants';
 import assign from 'object-assign';
 
 const CHANGE_EVENT = 'change';
+const BOARDID = 0;
 
-var items = {
-  "currentFilterState": [
+const items = {
+  currentFilterState: [
     {
-      "name": "improvement",
-      "state": true
+      name: 'improvement',
+      state: true,
     },
     {
-      "name": "defect",
-      "state": true
-    }
+      name: 'defect',
+      state: true,
+    },
   ],
-  "teams": {
-    "name": "spoqa",
-    "boards": [
+  teams: {
+    name: 'spoqa',
+    boards: [
       {
-        "name": "boardName",
-        "lists": {
-        }
-      }
-    ]
-  }
+        name: 'boardName',
+        lists: {
+        },
+      },
+    ],
+  },
+  cards: {},
 };
 
 const createList = (text, boardID) => {
   const id = (+new Date() + Math.floor(Math.random() * 999999)).toString(32);
   const list = {
     id,
-    name: id+id,
-    cards: {
-    }
+    name: id + id,
+    cardOrder: [],
   };
 
-  items.teams.boards[boardID].lists[id] = list;
+  items.teams.boards[BOARDID].lists[id] = list;
   console.log(items);
 };
 
 const createCard = (text, listID) => {
   const id = (+new Date() + Math.floor(Math.random() * 999999)).toString(32);
-  const boardID=0;
+  
   console.log(listID);
   const card = {
     id,
@@ -53,8 +54,15 @@ const createCard = (text, listID) => {
     content: id+id+id,
     birthTime: (+new Date()),
   };
-  items.teams.boards[0].lists[listID].cards[id] = card;
+  items.cards[id] = card;
+  items.teams.boards[BOARDID].lists[listID].cardOrder.push(id);
 };
+
+const sortCard = (order, target) => {
+  console.log(target);
+  items.teams.boards[BOARDID].lists[target].cardOrder = order;
+};
+
 const KanbanStore = assign({}, EventEmitter.prototype, {
 
   getAll() {
@@ -76,6 +84,7 @@ const KanbanStore = assign({}, EventEmitter.prototype, {
 
 AppDispatcher.register((action) => {
   let text;
+  let states;
 
   switch (action.actionType) {
   case KanbanConstants.LIST_CREATE :
@@ -92,10 +101,14 @@ AppDispatcher.register((action) => {
       KanbanStore.emitChange();
     }
     break;
+  case KanbanConstants.CARD_SORT :
+    sortCard(action.order, action.target);
+    KanbanStore.emitChange();
+    break;
   case KanbanConstants.SET_FILTER :
-    let states = items.currentFilterState;
+    states = items.currentFilterState;
     for (let i = 0; i < states.length; i++) {
-      if(states[i].name === action.filterName){
+      if (states[i].name === action.filterName) {
         states[i].state = !states[i].state;
       }
     }

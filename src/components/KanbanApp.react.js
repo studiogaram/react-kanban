@@ -37,6 +37,7 @@ export default class KanbanApp extends React.Component {
         />
         <BoardComponent
           items={this.state.allItems.teams.boards[0]}
+          cards={this.state.allItems.cards}
           filterState={this.state.allItems.currentFilterState}
         />
       </div>

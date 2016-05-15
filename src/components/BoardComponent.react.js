@@ -7,7 +7,6 @@ export default class BoardComponent extends React.Component {
   constructor(props) {
     super(props);
     const lists = props.items.lists;
-    console.log(lists);
     this.state = {
       name: props.items.name,
       lists,
@@ -27,16 +26,12 @@ export default class BoardComponent extends React.Component {
           key={key}
           id={lists[key].id}
           name={lists[key].name}
-          items={lists[key].cards}
+          items={this.props.cards}
+          cardOrder={lists[key].cardOrder}
           filterState={this.props.filterState}
-          onChange={(items) => {
-            console.log(items);
-            this.setState({ items });
-          }}
         />
       );
     });
-
     return (
       <div className="container-fluid content">
         <div className="row row-fluid">

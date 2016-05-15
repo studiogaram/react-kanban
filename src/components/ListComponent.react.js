@@ -7,10 +7,10 @@ import Sortable from 'react-sortablejs';
 export default class ListComponent extends React.Component {
   constructor(props) {
     super(props);
-    const cards = props.items;
     this.state = {
       name: props.name,
-      cards,
+      cards: props.items,
+      cardOrder: props.cardOrder,
       id: props.id,
     };
     this.createCard = this.createCard.bind(this);
@@ -20,60 +20,53 @@ export default class ListComponent extends React.Component {
     KanbanActions.createCard('asdfsfd', this.state.id);
   }
 
+  sortCard(order, target) {
+    KanbanActions.sortCard(order, target);
+  }
+
   render() {
-    const filterItems = [];
+    const filterItems = this.props.filterState.filter(val =>
+      val.state === true
+    ).map(val =>
+      val.name
+    );
 
-    for (let key in this.props.filterState) {
-      if (this.props.filterState[key].state === true) {
-        filterItems.push(this.props.filterState[key].name);
-      }
-    }
-
-    const { cards } = this.state;
-
-    let sortable = null; // sortable instance
-    let carditems = [];
-
-    for (let key in cards) {
-      if (filterItems.indexOf(cards[key].type) > -1) {
-        carditems.push(
-          <CardComponent
-            key={key}
-            data-id={key}
-            itemCompleted={cards[key].completed}
-            itemType={cards[key].type}
-            itemTitle={cards[key].title}
-            itemContent={cards[key].content}
-            itemBirthTime={cards[key].birthTime}
-          />
-        );
-      }
-    }
-
+    const cardItems = this.props.cardOrder.filter(val =>
+      filterItems.indexOf(this.state.cards[val].type) > -1
+    ).map((val, key) => (
+      <div key={key} data-id={val}>
+        <CardComponent
+          key={this.state.cards[val].id}
+          itemCompleted={this.state.cards[val].completed}
+          itemType={this.state.cards[val].type}
+          itemTitle={this.state.cards[val].title}
+          itemContent={this.state.cards[val].content}
+          itemBirthTime={this.state.cards[val].birthTime}
+        />
+      </div>
+    ));
     return (
       <div className="list">
         <div className="list-header">
           <p className="list-title">
-            <b>{Object.keys(this.state.cards).length}</b> {this.state.name}
+            <b>{this.props.cardOrder.length}</b> {this.state.name}
           </p>
         </div>
         <div className="list-body">
           <Sortable
             options={{
+              group: {
+                name: 'shared',
+                pull: true,
+                put: true,
+              },
             }}
-            ref={(c) => {
-              if (c) {
-                sortable = c.sortable;
-              }
-            }}
-            tag="div"
-            onChange={(order, sortable) => {
-              console.log(order);
-              console.log(sortable);
-              this.props.onChange(order);
+            ref={this.state.id}
+            onChange={(items) => {
+              this.sortCard(items, this.state.id);
             }}
           >
-            {carditems}
+            {cardItems}
           </Sortable>
           <ButtonComponent
             text="Create Issue"
@@ -96,5 +89,8 @@ export default class ListComponent extends React.Component {
 ListComponent.propTypes = {
   items: React.PropTypes.object.isRequired,
   name: React.PropTypes.string.isRequired,
+  cardOrder: React.PropTypes.array.isRequired,
+  filterState: React.PropTypes.array.isRequired,
+  id: React.PropTypes.string.isRequired,
 };
 

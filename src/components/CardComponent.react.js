@@ -53,5 +53,5 @@ CardComponent.propTypes = {
   itemType: React.PropTypes.oneOf(['improvement', 'defect']).isRequired,
   itemTitle: React.PropTypes.string.isRequired,
   itemContent: React.PropTypes.string.isRequired,
-  itemBirthTime: React.PropTypes.string.isRequired,
+  itemBirthTime: React.PropTypes.number.isRequired,
 };
