@@ -1,28 +1,50 @@
 import React from 'react';
+import KanbanActions from '../actions/KanbanActions';
 import CardComponent from './CardComponent.react';
+import ButtonComponent from './ButtonComponent.react';
 import Sortable from 'react-sortablejs';
 
 export default class ListComponent extends React.Component {
   constructor(props) {
     super(props);
-
     const cards = props.items;
-
     this.state = {
       name: props.name,
       cards,
+      id: props.id,
     };
+    this.createCard = this.createCard.bind(this);
+  }
+
+  createCard() {
+    KanbanActions.createCard('asdfsfd', this.state.id);
   }
 
   render() {
+
+
     const { cards } = this.state;
     let sortable = null; // sortable instance
+    let carditems = [];
+    for (let key in cards) {
+      carditems.push(
+        <CardComponent
+          key={key}
+          data-id={key}
+          itemCompleted={cards[key].completed}
+          itemType={cards[key].type}
+          itemTitle={cards[key].title}
+          itemContent={cards[key].content}
+          itemBirthTime={cards[key].birthTime}
+        />
+      );
+    }
 
     return (
       <div className="list">
         <div className="list-header">
           <p className="list-title">
-            <b>{this.state.cards.length}</b> {this.state.name}
+            <b>{Object.keys(this.state.cards).length}</b> {this.state.name}
           </p>
         </div>
         <div className="list-body">
@@ -36,23 +58,25 @@ export default class ListComponent extends React.Component {
             }}
             tag="div"
             onChange={(order, sortable) => {
+              console.log(order);
+              console.log(sortable);
               this.props.onChange(order);
             }}
           >
-            {cards.map((card, i) => {
-              return (
-                <CardComponent
-                  key={i}
-                  data-id={card.order}
-                  itemCompleted={card.completed}
-                  itemType={card.type}
-                  itemTitle={card.title}
-                  itemContent={card.content}
-                  itemBirthTime={card.birthTime}
-                />
-              );
-            })}
+            {carditems}
           </Sortable>
+          <ButtonComponent
+            text="Create Issue"
+            state="primary"
+            onClick={this.createCard}
+          />
+        </div>
+        <div className="list-footer">
+          <ButtonComponent
+            text="Create Issue"
+            state="primary"
+            onClick={this.createCard}
+          />
         </div>
       </div>
     );

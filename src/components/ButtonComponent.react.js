@@ -1,14 +1,20 @@
 import React from 'react';
 export default class ButtonComponent extends React.Component {
   render() {
-    let stateClassname = 'btn '
-    if (this.props.state == 'primary') {
+    let stateClassname = 'btn ';
+
+    if (this.props.state === 'primary') {
       stateClassname += 'btn-primary ';
-    }else{
+    } else {
       stateClassname += 'btn-default ';
     }
     return (
-      <button className={stateClassname}>{this.props.text}</button>
+      <button
+        onClick={this.props.onClick}
+        className={stateClassname}
+      >
+        {this.props.text}
+      </button>
     );
   }
 }
@@ -16,4 +22,5 @@ export default class ButtonComponent extends React.Component {
 ButtonComponent.propTypes = {
   state: React.PropTypes.oneOf(['default', 'primary']).isRequired,
   text: React.PropTypes.string.isRequired,
+  onClick: React.PropTypes.func,
 };
