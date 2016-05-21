@@ -43,12 +43,12 @@ const createList = (text, boardID) => {
 };
 
 const removeList = (target) => {
+  const listHasTarget = items.teams.boards[0].listOrder;
   delete items.lists[target];
-  // items.teams.boards[0].listOrder.pop();
+  listHasTarget.splice(listHasTarget.indexOf(target), 1);
 };
 
 const sortList = (order, target) => {
-  console.log(target);
   items.teams.boards[target].listOrder = order;
 };
 
