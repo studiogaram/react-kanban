@@ -5,16 +5,6 @@ import ButtonComponent from './ButtonComponent.react';
 import Sortable from 'react-sortablejs';
 
 export default class BoardComponent extends React.Component {
-  constructor(props) {
-    super(props);
-    const lists = props.items.lists;
-    this.state = {
-      name: props.items.name,
-      lists,
-      listOrder: props.items.listOrder,
-    };
-  }
-
   createList() {
     KanbanActions.createList('asdfsfd', 0);
   }
@@ -24,7 +14,7 @@ export default class BoardComponent extends React.Component {
   }
 
   render() {
-    console.log(this.props.lists);
+    console.log(this.lists);
     const listItems = this.props.items.listOrder.map((val, key) => (
       <div key={key} className={'tempStyleDiv'} data-id={val}>
         <ListComponent
@@ -40,7 +30,7 @@ export default class BoardComponent extends React.Component {
     ));
     return (
       <div className="container-fluid content">
-      <div className="row row-fluid">
+        <div className="row row-fluid">
           <Sortable
             options={{
               group: {
@@ -63,7 +53,7 @@ export default class BoardComponent extends React.Component {
             state="list"
             onClick={this.createList}
           />
-          </div>
+        </div>
       </div>
     );
   }
@@ -71,4 +61,7 @@ export default class BoardComponent extends React.Component {
 
 BoardComponent.propTypes = {
   items: React.PropTypes.object.isRequired,
+  lists: React.PropTypes.object.isRequired,
+  cards: React.PropTypes.object.isRequired,
+  filterState: React.PropTypes.array.isRequired,
 };

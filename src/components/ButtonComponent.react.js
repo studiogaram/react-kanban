@@ -5,7 +5,7 @@ export default class ButtonComponent extends React.Component {
 
     if (this.props.state === 'primary') {
       stateClassname += 'btn-primary ';
-    } else if (this.props.state ==='list') {
+    } else if (this.props.state === 'list') {
       stateClassname += 'btn-list';
     } else {
       stateClassname += 'btn-default ';
