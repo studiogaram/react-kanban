@@ -31,6 +31,7 @@ export default class KanbanApp extends React.Component {
   render() {
     return (
       <div>
+
         <NavbarComponent
           items={this.state.allItems.teams}
           filterState={this.state.allItems.currentFilterState}

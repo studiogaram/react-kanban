@@ -25,7 +25,6 @@ export default class NavbarComponent extends React.Component {
   }
 
   render() {
-    console.log(this.state.isShowingModal);
     return (
       <div className="navbar navbar-fixed">
         <ModalComponent
@@ -45,7 +44,7 @@ export default class NavbarComponent extends React.Component {
               <ButtonComponent
                 text="Create Issue"
                 state="primary"
-                onClick={this.handleClick.bind(this)}
+                onClick={this.handleClick}
               />
             </div>
           </div>
