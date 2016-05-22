@@ -51,6 +51,10 @@ export default class ListComponent extends React.Component {
             <b>{this.props.cardOrder.length}</b> {this.props.name}
           </p>
           <button
+            className="btn-create"
+            onClick={this.createCard}
+          />
+          <button
             className="btn-trash"
             onClick={this.removeList}
           />
@@ -64,6 +68,7 @@ export default class ListComponent extends React.Component {
                 put: true,
               },
             }}
+            className="sortable"
             ref={this.props.id}
             onChange={(items) => {
               this.sortCard(items, this.props.id);
@@ -71,11 +76,6 @@ export default class ListComponent extends React.Component {
           >
             {cardItems}
           </Sortable>
-          <ButtonComponent
-            text="Create Issue"
-            state="list"
-            onClick={this.createCard}
-          />
         </div>
       </div>
     );
