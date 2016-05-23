@@ -14,7 +14,6 @@ export default class BoardComponent extends React.Component {
   }
 
   render() {
-    console.log(this.lists);
     const listItems = this.props.items.listOrder.map((val, key) => (
       <div key={key} className={'tempStyleDiv'} data-id={val}>
         <ListComponent
@@ -25,6 +24,7 @@ export default class BoardComponent extends React.Component {
           items={this.props.cards}
           cardOrder={this.props.lists[val].cardOrder}
           filterState={this.props.filterState}
+          openModal={this.props.openModal}
         />
       </div>
     ));

@@ -52,14 +52,14 @@ const sortList = (order, target) => {
   items.teams.boards[target].listOrder = order;
 };
 
-const createCard = (text, listID) => {
+const createCard = (text, filterName, listID) => {
   const id = (+new Date() + Math.floor(Math.random() * 999999)).toString(32);
 
   const card = {
     id,
-    title: id+id,
+    title: text,
     completed: (+new Date()%2) ? true : false,
-    type: (+new Date()%2) ? 'improvement' : 'defect',
+    type: filterName,
     content: id+id+id,
     birthTime: (+new Date()),
   };
@@ -113,7 +113,7 @@ AppDispatcher.register((action) => {
   case KanbanConstants.CARD_CREATE :
     text = action.text.trim();
     if (text !== '') {
-      createCard(text, action.listID);
+      createCard(text, action.filterName, action.listID);
       KanbanStore.emitChange();
     }
     break;
