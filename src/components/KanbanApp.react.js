@@ -17,8 +17,8 @@ export default class KanbanApp extends React.Component {
     this.state = getKanbanState();
     this.state.modalIsOpen = false;
     this.openModal = this.openModal.bind(this);
-    this.afterOpenModal = this.afterOpenModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
+    this.state.targetList = false;
   }
 
   componentDidMount() {
@@ -33,13 +33,11 @@ export default class KanbanApp extends React.Component {
     this.setState(getKanbanState());
   }
 
-  openModal() {
+  openModal(event) {
+    this.setState({ targetList: event.target.value });
     this.setState({ modalIsOpen: true });
   }
 
-  afterOpenModal() {
-    // references are now sync'd and can be accessed.
-  }
 
   closeModal() {
     this.setState({ modalIsOpen: false });
@@ -56,6 +54,7 @@ export default class KanbanApp extends React.Component {
           currentFilterState={this.state.allItems.currentFilterState}
           listOrder={this.state.allItems.teams.boards[0].listOrder}
           lists={this.state.allItems.lists}
+          targetList={this.state.targetList}
         />
         <NavbarComponent
           items={this.state.allItems.teams}
@@ -67,6 +66,7 @@ export default class KanbanApp extends React.Component {
           lists={this.state.allItems.lists}
           cards={this.state.allItems.cards}
           filterState={this.state.allItems.currentFilterState}
+          openModal={this.openModal}
         />
       </div>
     );

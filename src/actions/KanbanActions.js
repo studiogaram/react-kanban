@@ -22,11 +22,12 @@ const KanbanActions = {
       order,
     });
   },
-  createCard(text, listID) {
+  createCard(text, filterName, listID) {
     AppDispatcher.dispatch({
       actionType: KanbanConstants.CARD_CREATE,
       listID,
       text,
+      filterName,
     });
   },
   sortCard(order, target) {

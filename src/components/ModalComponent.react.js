@@ -26,7 +26,8 @@ export default class ModalComponent extends React.Component {
       this.setState({
         value: 'ISSUE-',
         filter: this.props.currentFilterState[0].name,
-        list: this.props.listOrder[0],
+        list: this.props.targetList.length ?
+          this.props.targetList : this.props.listOrder[0],
       });
     }
   }
@@ -43,8 +44,8 @@ export default class ModalComponent extends React.Component {
   }
 
   createCard() {
-    console.log(this.state);
-    KanbanActions.createCard(this.state.value, this.state.list);
+    KanbanActions.createCard(this.state.value, this.state.filter, this.state.list);
+    this.props.closeModal();
   }
 
   render() {
@@ -132,5 +133,6 @@ ModalComponent.propTypes = {
   lists: React.PropTypes.object.isRequired,
   closeModal: React.PropTypes.func.isRequired,
   modalIsOpen: React.PropTypes.bool.isRequired,
+  targetList: React.PropTypes.string.isRequired,
 };
 

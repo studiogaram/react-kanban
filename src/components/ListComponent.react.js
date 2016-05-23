@@ -1,18 +1,12 @@
 import React from 'react';
 import KanbanActions from '../actions/KanbanActions';
 import CardComponent from './CardComponent.react';
-import ButtonComponent from './ButtonComponent.react';
 import Sortable from 'react-sortablejs';
 
 export default class ListComponent extends React.Component {
   constructor(props) {
     super(props);
-    this.createCard = this.createCard.bind(this);
     this.removeList = this.removeList.bind(this);
-  }
-
-  createCard() {
-    KanbanActions.createCard('asdfsfd', this.props.id);
   }
 
   sortCard(order, target) {
@@ -52,7 +46,8 @@ export default class ListComponent extends React.Component {
           </p>
           <button
             className="btn-create"
-            onClick={this.createCard}
+            value={this.props.id}
+            onClick={this.props.openModal}
           />
           <button
             className="btn-trash"
