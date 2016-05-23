@@ -3,7 +3,7 @@ import KanbanStore from '../stores/KanbanStore';
 import KanbanActions from '../actions/KanbanActions';
 import NavbarComponent from './NavbarComponent.react';
 import BoardComponent from './BoardComponent.react';
-import ModalComponent from './ModalComponent.react';
+import CreateCardModal from './CreateCardModal.react';
 
 const getKanbanState = () => ({
   allItems: KanbanStore.getAll(),
@@ -46,7 +46,7 @@ export default class KanbanApp extends React.Component {
   render() {
     return (
       <div>
-        <ModalComponent
+        <CreateCardModal
           modalIsOpen={this.state.modalIsOpen}
           openModal={this.openModal}
           afterOpenModal={this.afterOpenModal}

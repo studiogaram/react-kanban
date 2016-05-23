@@ -2,11 +2,9 @@ import React from 'react';
 import Modal from 'react-modal';
 import KanbanActions from '../actions/KanbanActions';
 
-export default class ModalComponent extends React.Component {
+export default class CreateCardModal extends React.Component {
   constructor(props) {
     super(props);
-
-
     this.state = ({ value: 'ISSUE-',
                     filter: props.currentFilterState[0].name,
                     list: props.listOrder[0],
@@ -127,7 +125,7 @@ export default class ModalComponent extends React.Component {
 }
 
 
-ModalComponent.propTypes = {
+CreateCardModal.propTypes = {
   currentFilterState: React.PropTypes.array.isRequired,
   listOrder: React.PropTypes.array.isRequired,
   lists: React.PropTypes.object.isRequired,
