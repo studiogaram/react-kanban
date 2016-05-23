@@ -3,6 +3,7 @@ import KanbanStore from '../stores/KanbanStore';
 import KanbanActions from '../actions/KanbanActions';
 import NavbarComponent from './NavbarComponent.react';
 import BoardComponent from './BoardComponent.react';
+import ModalComponent from './ModalComponent.react';
 
 const getKanbanState = () => ({
   allItems: KanbanStore.getAll(),
@@ -14,6 +15,10 @@ export default class KanbanApp extends React.Component {
     super(props);
     this.onChange = this.onChange.bind(this);
     this.state = getKanbanState();
+    this.state.modalIsOpen = false;
+    this.openModal = this.openModal.bind(this);
+    this.afterOpenModal = this.afterOpenModal.bind(this);
+    this.closeModal = this.closeModal.bind(this);
   }
 
   componentDidMount() {
@@ -28,13 +33,34 @@ export default class KanbanApp extends React.Component {
     this.setState(getKanbanState());
   }
 
+  openModal() {
+    this.setState({ modalIsOpen: true });
+  }
+
+  afterOpenModal() {
+    // references are now sync'd and can be accessed.
+  }
+
+  closeModal() {
+    this.setState({ modalIsOpen: false });
+  }
+
   render() {
     return (
       <div>
-
+        <ModalComponent
+          modalIsOpen={this.state.modalIsOpen}
+          openModal={this.openModal}
+          afterOpenModal={this.afterOpenModal}
+          closeModal={this.closeModal}
+          currentFilterState={this.state.allItems.currentFilterState}
+          listOrder={this.state.allItems.teams.boards[0].listOrder}
+          lists={this.state.allItems.lists}
+        />
         <NavbarComponent
           items={this.state.allItems.teams}
           filterState={this.state.allItems.currentFilterState}
+          openModal={this.openModal}
         />
         <BoardComponent
           items={this.state.allItems.teams.boards[0]}
