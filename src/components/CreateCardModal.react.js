@@ -5,14 +5,11 @@ import KanbanActions from '../actions/KanbanActions';
 export default class CreateCardModal extends React.Component {
   constructor(props) {
     super(props);
-    this.state = ({ value: 'ISSUE-',
+    this.state = ({ title: 'ISSUE-',
                     filter: props.currentFilterState[0].name,
                     list: props.listOrder[0],
                   });
 
-    this.handleChange = this.handleChange.bind(this);
-    this.handleChangeFilter = this.handleChangeFilter.bind(this);
-    this.handleChangeList = this.handleChangeList.bind(this);
     this.createCard = this.createCard.bind(this);
     this.afterOpenModal = this.afterOpenModal.bind(this);
   }
@@ -22,27 +19,19 @@ export default class CreateCardModal extends React.Component {
       this.props.closeModal();
     } else {
       this.setState({
-        value: 'ISSUE-',
+        title: 'ISSUE-',
         filter: this.props.currentFilterState[0].name,
         list: this.props.targetList.length ?
           this.props.targetList : this.props.listOrder[0],
       });
     }
   }
-  handleChange(event) {
-    this.setState({ value: event.target.value });
-  }
-
-  handleChangeFilter(event) {
-    this.setState({ filter: event.target.value });
-  }
-
-  handleChangeList(event) {
-    this.setState({ list: event.target.value });
+  handleChange(name, event) {
+    this.setState({ [name]: event.target.value });
   }
 
   createCard() {
-    KanbanActions.createCard(this.state.value, this.state.filter, this.state.list);
+    KanbanActions.createCard(this.state.title, this.state.filter, this.state.list);
     this.props.closeModal();
   }
 
@@ -73,15 +62,15 @@ export default class CreateCardModal extends React.Component {
             <input
               name="issueName"
               className="form-control input-block"
-              value={this.state.value}
-              onChange={this.handleChange}
+              value={this.state.title}
+              onChange={this.handleChange.bind(this, 'title')}
             />
           </div>
           <div className="form-group">
             <label className="label-control">Issue Type</label>
 
             <select
-              onChange={this.handleChangeFilter}
+              onChange={this.handleChange.bind(this, 'filter')}
               value={this.state.filter}
               className="form-control input-block"
             >
@@ -97,7 +86,7 @@ export default class CreateCardModal extends React.Component {
           <div className="form-group">
             <label className="label-control">Issue List</label>
             <select
-              onChange={this.handleChangeList}
+              onChange={this.handleChange.bind(this, 'list')}
               value={this.state.list}
               className="form-control input-block"
             >
