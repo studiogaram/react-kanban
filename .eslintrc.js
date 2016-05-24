@@ -34,6 +34,11 @@ module.exports = {
         "arrow-body-style": [
             "error",
             "as-needed"
-        ]
+        ],
+        "jsx-no-bind": [<enabled>, {
+          "ignoreRefs": false,
+          "allowArrowFunctions": false,
+          "allowBind": true
+        }]
     }
 };
