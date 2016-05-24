@@ -3,10 +3,26 @@ import KanbanActions from '../actions/KanbanActions';
 import ListComponent from './ListComponent.react';
 import ButtonComponent from './ButtonComponent.react';
 import Sortable from 'react-sortablejs';
+import CreateListModal from './CreateListModal.react';
 
 export default class BoardComponent extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { modalIsOpen: false };
+    this.openModal = this.openModal.bind(this);
+    this.closeModal = this.closeModal.bind(this);
+  }
+
   createList() {
     KanbanActions.createList('asdfsfd', 0);
+  }
+  
+  openModal(event) {
+    this.setState({ modalIsOpen: true });
+  }
+
+  closeModal() {
+    this.setState({ modalIsOpen: false });
   }
 
   sortList(order, target) {
@@ -51,9 +67,14 @@ export default class BoardComponent extends React.Component {
           <ButtonComponent
             text="Create List"
             state="list"
-            onClick={this.createList}
+            onClick={this.openModal}
           />
         </div>
+        <CreateListModal 
+          modalIsOpen={this.state.modalIsOpen}
+          openModal={this.openModal}
+          closeModal={this.closeModal}
+          />
       </div>
     );
   }

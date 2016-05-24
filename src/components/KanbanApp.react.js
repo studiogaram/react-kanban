@@ -49,7 +49,6 @@ export default class KanbanApp extends React.Component {
         <CreateCardModal
           modalIsOpen={this.state.modalIsOpen}
           openModal={this.openModal}
-          afterOpenModal={this.afterOpenModal}
           closeModal={this.closeModal}
           currentFilterState={this.state.allItems.currentFilterState}
           listOrder={this.state.allItems.teams.boards[0].listOrder}

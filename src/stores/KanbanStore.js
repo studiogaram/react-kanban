@@ -34,7 +34,7 @@ const createList = (text, boardID) => {
   const id = (+new Date() + Math.floor(Math.random() * 999999)).toString(32);
   const list = {
     id,
-    name: id + id,
+    name: text,
     cardOrder: [],
   };
 
