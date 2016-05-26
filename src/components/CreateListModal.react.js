@@ -16,6 +16,7 @@ export default class CreateListModal extends React.Component {
 
   createList() {
     KanbanActions.createList(this.state.title, 0);
+    this.setState({ title: '' });
     this.props.closeModal();
   }
 
@@ -44,6 +45,7 @@ export default class CreateListModal extends React.Component {
           <div className="form-group">
             <label className="label-control">List Name</label>
             <input
+              autoFocus
               name="listName"
               className="form-control input-block"
               value={this.state.title}

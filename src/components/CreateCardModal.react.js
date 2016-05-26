@@ -60,6 +60,7 @@ export default class CreateCardModal extends React.Component {
           <div className="form-group">
             <label className="label-control">Issue Name</label>
             <input
+              autoFocus
               name="issueName"
               className="form-control input-block"
               value={this.state.title}
