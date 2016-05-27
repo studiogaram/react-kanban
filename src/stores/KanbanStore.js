@@ -6,7 +6,9 @@ import assign from 'object-assign';
 const CHANGE_EVENT = 'change';
 const BOARDID = 0;
 
-const items = {
+const items =
+  localStorage.getItem("items") ?
+  JSON.parse(localStorage.getItem("items")) : {
   currentFilterState: [
     {
       name: 'improvement',
@@ -78,6 +80,11 @@ const KanbanStore = assign({}, EventEmitter.prototype, {
   },
 
   emitChange() {
+    if(typeof(Storage) !== "undefined") {
+        localStorage.setItem("items", JSON.stringify(items));
+    } else {
+      alert('You Need to upgrade Web browser.');
+    }
     this.emit(CHANGE_EVENT);
   },
 
