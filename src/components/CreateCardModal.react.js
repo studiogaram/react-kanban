@@ -25,6 +25,7 @@ export default class CreateCardModal extends React.Component {
           this.props.targetList : this.props.listOrder[0],
       });
     }
+    console.log(typeof this.props.targetList);
   }
   handleChange(name, event) {
     this.setState({ [name]: event.target.value });
@@ -121,6 +122,9 @@ CreateCardModal.propTypes = {
   lists: React.PropTypes.object.isRequired,
   closeModal: React.PropTypes.func.isRequired,
   modalIsOpen: React.PropTypes.bool.isRequired,
-  targetList: React.PropTypes.string.isRequired,
+  targetList: React.PropTypes.oneOfType([
+      React.PropTypes.string,
+      React.PropTypes.bool,
+    ]).isRequired,
 };
 

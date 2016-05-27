@@ -68,11 +68,7 @@ export default class CreateListModal extends React.Component {
 
 
 CreateListModal.propTypes = {
-  currentFilterState: React.PropTypes.array.isRequired,
-  listOrder: React.PropTypes.array.isRequired,
-  lists: React.PropTypes.object.isRequired,
   closeModal: React.PropTypes.func.isRequired,
   modalIsOpen: React.PropTypes.bool.isRequired,
-  targetList: React.PropTypes.string.isRequired,
 };
 
